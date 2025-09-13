@@ -35,7 +35,7 @@ resource "aws_iam_policy" "cloudwatch_log_writes_policy" {
       {
         Action = ["logs:CreateLogStream", "logs:PutLogEvents"]
         Effect = "Allow"
-        Resource = "arn:aws:logs:${data.aws_region.this.name}:${data.aws_caller_identity.this.account_id}:log-group:/aws/lambda/*:*"
+        Resource = "arn:aws:logs:${data.aws_region.this.region}:${data.aws_caller_identity.this.account_id}:log-group:/aws/lambda/*:*"
       }
     ]
   })

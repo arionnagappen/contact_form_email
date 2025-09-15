@@ -15,3 +15,12 @@ module "my_lambda_function" {
 
   lambda_role_arn = module.my_roles.lambda_role_arn
 }
+
+// --- API GATEWAY --- //
+module "my_api_gateway" {
+  source = "../../modules/api-gateway"
+
+  lambda_email_function_arn = module.my_lambda_function.lambda_email_function_arn
+
+  lambda_invoke_arn = module.my_lambda_function.lambda_invoke_arn
+}

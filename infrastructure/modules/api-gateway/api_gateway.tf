@@ -4,6 +4,12 @@
 resource "aws_apigatewayv2_api" "my_apigateway" {
   name          = "my-lambda-http-api"
   protocol_type = "HTTP"
+
+  cors_configuration {
+    allow_origins = ["https://${var.cloudfront_domain_name}"]
+    allow_methods = [ "POST" ]
+    allow_headers = [ "Content-Type" ]
+  }
 }
 
 # API INTEGRATION

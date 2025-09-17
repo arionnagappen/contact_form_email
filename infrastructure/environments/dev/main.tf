@@ -23,4 +23,6 @@ module "my_api_gateway" {
   lambda_email_function_arn = module.my_lambda_function.lambda_email_function_arn
 
   lambda_invoke_arn = module.my_lambda_function.lambda_invoke_arn
+
+  cloudfront_domain_name = module.frontend.cloudfront_domain_name
 }

@@ -7,3 +7,8 @@ variable "lambda_email_function_arn" {
   type = string
   description = "Lambda email function arn"
 }
+
+variable "cloudfront_domain_name" {
+  type = string
+  description = "CloudFront URL"
+}

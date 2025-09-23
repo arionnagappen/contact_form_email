@@ -36,6 +36,11 @@ resource "aws_iam_policy" "cloudwatch_log_writes_policy" {
         Action = ["logs:CreateLogStream", "logs:PutLogEvents"]
         Effect = "Allow"
         Resource = "arn:aws:logs:${data.aws_region.this.region}:${data.aws_caller_identity.this.account_id}:log-group:/aws/lambda/*:*"
+      },
+      {
+        Action = ["dynamodb:PutItem", "dynamodb:GetItem", "dynamodb:DescribeTable"]
+        Effect = "Allow"
+        Resource = var.table_arn
       }
     ]
   })

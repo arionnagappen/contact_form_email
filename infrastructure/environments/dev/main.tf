@@ -7,6 +7,7 @@ module "frontend" {
 // --- IAM ROLES --- //
 module "my_roles" {
   source = "../../modules/iam-roles"
+  table_arn = module.my_dynambodb.table_arn
 }
 
 // --- LAMBDA FUNCTION --- //
@@ -25,4 +26,11 @@ module "my_api_gateway" {
   lambda_invoke_arn = module.my_lambda_function.lambda_invoke_arn
 
   cloudfront_domain_name = module.frontend.cloudfront_domain_name
+}
+
+// --- DYNAMO DB --- //
+module "my_dynambodb" {
+  source = "../../modules/dynamodb"
+
+
 }

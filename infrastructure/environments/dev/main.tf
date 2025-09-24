@@ -28,9 +28,18 @@ module "my_api_gateway" {
   cloudfront_domain_name = module.frontend.cloudfront_domain_name
 }
 
+// --- CLOUDWATCH --- //
+module "my_cloudwatch_monitoring" {
+  source = "../../modules/cloudwatch"
+  sns_topic_arn = module.my_sns.sns_topic_arn
+}
+
+// -- SNS --- //
+module "my_sns" {
+  source = "../../modules/sns"
+}
+
 // --- DYNAMO DB --- //
 module "my_dynambodb" {
   source = "../../modules/dynamodb"
-
-
 }

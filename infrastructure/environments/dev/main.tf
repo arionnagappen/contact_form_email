@@ -34,7 +34,7 @@ module "my_cloudwatch_monitoring" {
   sns_topic_arn = module.my_sns.sns_topic_arn
 }
 
-// -- SNS --- //
+// --- SNS --- //
 module "my_sns" {
   source = "../../modules/sns"
 }
@@ -43,3 +43,9 @@ module "my_sns" {
 module "my_dynambodb" {
   source = "../../modules/dynamodb"
 }
+
+// --- SES --- //
+module "my_ses" {
+  source = "../../modules/ses"
+  lambda_alert_arn = module.my_sns.sns_topic_arn
+} 

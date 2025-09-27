@@ -41,6 +41,14 @@ resource "aws_iam_policy" "cloudwatch_log_writes_policy" {
         Action = ["dynamodb:PutItem", "dynamodb:GetItem", "dynamodb:DescribeTable"]
         Effect = "Allow"
         Resource = var.table_arn
+      },
+      {
+        Effect   = "Allow"
+        Action   = ["ses:SendEmail", "ses:SendRawEmail"]
+        Resource = "*"
+        Condition = {
+          StringEquals = {"ses:FromAddress" = "arionnagappen@gmail.com"}
+        }
       }
     ]
   })

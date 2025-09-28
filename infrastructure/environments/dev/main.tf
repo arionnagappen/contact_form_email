@@ -49,3 +49,10 @@ module "my_ses" {
   source = "../../modules/ses"
   lambda_alert_arn = module.my_sns.sns_topic_arn
 } 
+
+// --- WAF --- //
+module "my_waf" {
+  source = "../../modules/waf"
+  apigateway_stage_arn = module.my_api_gateway.apigateway_stage_arn
+}
+

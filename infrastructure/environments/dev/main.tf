@@ -31,7 +31,20 @@ module "my_api_gateway" {
 // --- CLOUDWATCH --- //
 module "my_cloudwatch_monitoring" {
   source = "../../modules/cloudwatch"
+
+  # CloudWatch Log Group
+  num_retention_days = 14
+  environment_tag = "development"
+  application_tag = "serviceA"
+
+  # Num Lambda Errors Alarm
+  num_lambda_evaluation_periods = 1
+  lambda_alarm_period = 300
+  lambda_alarm_threshold = 0
+
+  # From Other Modules
   sns_topic_arn = module.my_sns.sns_topic_arn
+  function_name = module.my_lambda_function.function_name
 }
 
 // --- SNS --- //

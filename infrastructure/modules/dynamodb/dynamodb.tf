@@ -1,11 +1,11 @@
 resource "aws_dynamodb_table" "contact_submissions" {
-  name = "contact_submissions"
+  name = var.table_name
   billing_mode = "PAY_PER_REQUEST"
 
   # Partition key (submission_id) uniquely identifies each submission
   # Sort key (created_at) allows ordering by timestamp
-  hash_key = "submission_id"
-  range_key = "created_at"
+  hash_key = var.my_hash_key
+  range_key = var.my_range_key
 
   attribute {
     name = "submission_id"
@@ -28,7 +28,7 @@ resource "aws_dynamodb_table" "contact_submissions" {
   }
 
   tags = {
-    Environment = "development"
-    Application = "Email Form"
+    Environment = var.table_env_tag
+    Application = var.table_app_tag
   }
 }

@@ -55,6 +55,12 @@ module "my_sns" {
 // --- DYNAMO DB --- //
 module "my_dynambodb" {
   source = "../../modules/dynamodb"
+
+  table_name = "contact_submissions"
+  my_hash_key = "submission_id"
+  my_range_key = "created_at"
+  table_env_tag = "development"
+  table_app_tag = "Email Form"
 }
 
 // --- SES --- //

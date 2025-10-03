@@ -47,7 +47,7 @@ resource "aws_iam_policy" "cloudwatch_log_writes_policy" {
         Action   = ["ses:SendEmail", "ses:SendRawEmail"]
         Resource = "*"
         Condition = {
-          StringEquals = {"ses:FromAddress" = "arionnagappen@gmail.com"}
+          StringEquals = {"ses:FromAddress" = "${var.from_address}"}
         }
       }
     ]

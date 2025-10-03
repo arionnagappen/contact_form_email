@@ -8,6 +8,7 @@ module "frontend" {
 module "my_roles" {
   source = "../../modules/iam-roles"
   table_arn = module.my_dynambodb.table_arn
+  from_address = "arionnagappen@gmail.com"
 }
 
 // --- LAMBDA FUNCTION --- //

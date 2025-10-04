@@ -1,10 +1,10 @@
 // --- IDENTITIES --- //
 resource "aws_sesv2_email_identity" "sender_identity" {
-  email_identity = "arionnagappen@gmail.com"
+  email_identity = var.sender_identity_email
 }
 
 resource "aws_sesv2_email_identity" "recipient_identity" {
-  email_identity = "nagappen27@gmail.com"
+  email_identity = var.recipient_identity_email
 }
 
 // --- CONFIGURATION SET --- //

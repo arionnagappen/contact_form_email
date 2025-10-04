@@ -81,6 +81,9 @@ module "my_dynambodb" {
 module "my_ses" {
   source = "../../modules/ses"
   lambda_alert_arn = module.my_sns.sns_topic_arn
+
+  sender_identity_email = "xxxxx"
+  recipient_identity_email = "xxxxx"
 } 
 
 // --- WAF --- //

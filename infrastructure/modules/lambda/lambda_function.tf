@@ -1,29 +1,29 @@
 # Package Lambda Function Code
 data "archive_file" "email_function_package" {
   type = "zip"
-  source_file = "../../../lambda/index.py"
+  source_file = var.source_file_location
   output_path = "${path.module}/lambda/function.zip"
 }
 
 # Lambda Function
 resource "aws_lambda_function" "email_function" {
   filename = data.archive_file.email_function_package.output_path
-  function_name = "my_email_function"
+  function_name = var.my_function_name
   role = var.lambda_role_arn
-  handler = "index.lambda_handler"
+  handler = var.function_handler
   source_code_hash = data.archive_file.email_function_package.output_base64sha256
 
-  runtime = "python3.13"
+  runtime = var.lambda_runtime
 
   environment {
     variables = {
-      ENVIRONMENT = "development"
-      LOG_LEVEL = "info"
+      ENVIRONMENT = var.environment_variable 
+      LOG_LEVEL = var.log_level_variable
     }
   }
 
   tags = {
-    Environment = "development"
-    Application = "Email Form"
+    Environment = var.environment_tag
+    Application = var.application_tag
   }
 }

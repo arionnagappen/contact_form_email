@@ -3,6 +3,16 @@ resource "aws_s3_bucket" "frontend_bucket" {
   bucket = var.frontend_bucket_name
 }
 
+resource "aws_s3_bucket_server_side_encryption_configuration" "frontend_bucket_encryption" {
+  bucket = aws_s3_bucket.frontend_bucket.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+}
+
 // --- Ownership Controls --- //
 resource "aws_s3_bucket_ownership_controls" "static_site_bucket_ownership" {
   bucket = aws_s3_bucket.frontend_bucket.id
@@ -25,13 +35,13 @@ resource "aws_s3_bucket_policy" "front_bucket_policy" {
         Sid = "AllowCloudFrontOACRead",
         Effect = "Allow",
         Principal = {
-          Service: "cloudfront.amazonaws.com"
+          Service = "cloudfront.amazonaws.com"
         },
         Action = "s3:GetObject",
         Resource = "${aws_s3_bucket.frontend_bucket.arn}/*", # Applies to all files in the bucket
         Condition = {
           StringEquals = {
-            "AWS:SourceArn": aws_cloudfront_distribution.s3_frontend_distribution.arn
+            "AWS:SourceArn" = aws_cloudfront_distribution.s3_frontend_distribution.arn
           }
         }
       }

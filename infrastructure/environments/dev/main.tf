@@ -15,7 +15,20 @@ module "my_roles" {
 module "my_lambda_function" {
   source = "../../modules/lambda"
 
+  source_file_location = "../../../lambda/index.py"
+
   lambda_role_arn = module.my_roles.lambda_role_arn
+  my_function_name = "my_email_function"
+  function_handler = "index.lambda_handler"
+  lambda_runtime = "python3.13"
+
+  # Environment Variables
+  environment_variable = "development"
+  log_level_variable = "info"
+
+  # Tags
+  environment_tag = "development"
+  application_tag = "Email Form"
 }
 
 // --- API GATEWAY --- //

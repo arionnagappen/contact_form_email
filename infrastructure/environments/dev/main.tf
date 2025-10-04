@@ -64,6 +64,8 @@ module "my_cloudwatch_monitoring" {
 // --- SNS --- //
 module "my_sns" {
   source = "../../modules/sns"
+
+  endpoint_email = "arionnagappen@gmail.com"
 }
 
 // --- DYNAMO DB --- //

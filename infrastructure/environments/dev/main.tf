@@ -29,6 +29,7 @@ module "my_lambda_function" {
   sender_email = "arionnagappen@gmail.com"
   recipient_email = "nagappen27@gmail.com"
   cfg_set_name = "contact-form-cfg"
+  
 
   # Tags
   environment_tag = "development"

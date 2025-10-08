@@ -15,6 +15,7 @@ resource "aws_lambda_function" "email_function" {
 
   runtime = var.lambda_runtime
 
+  # Values injected into the Lambda’s execution environment so that the Python code can access them dynamically.
   environment {
   variables = {
     ENVIRONMENT     = "development"

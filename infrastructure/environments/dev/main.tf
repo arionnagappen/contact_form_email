@@ -25,6 +25,10 @@ module "my_lambda_function" {
   # Environment Variables
   environment_variable = "development"
   log_level_variable = "info"
+  table_name = module.my_dynambodb.contact_submissions_name
+  sender_email = "arionnagappen@gmail.com"
+  recipient_email = "nagappen27@gmail.com"
+  cfg_set_name = "contact-form-cfg"
 
   # Tags
   environment_tag = "development"

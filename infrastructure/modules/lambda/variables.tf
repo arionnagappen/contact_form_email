@@ -44,3 +44,20 @@ variable "application_tag" {
   type = string
   description = "Application tag"
 }
+
+// --- ENVIRONMENT VARIABLES --- //
+variable "table_name" { 
+  type = string 
+}
+
+variable "sender_email" { 
+  type = string 
+}
+
+variable "recipient_email" { 
+  type = string 
+}
+
+variable "cfg_set_name" { 
+  type = string
+}

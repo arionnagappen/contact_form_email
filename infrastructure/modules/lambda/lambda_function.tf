@@ -16,11 +16,16 @@ resource "aws_lambda_function" "email_function" {
   runtime = var.lambda_runtime
 
   environment {
-    variables = {
-      ENVIRONMENT = var.environment_variable 
-      LOG_LEVEL = var.log_level_variable
-    }
+  variables = {
+    ENVIRONMENT     = "development"
+    LOG_LEVEL       = "info"
+    TABLE_NAME      = var.table_name
+    SENDER_EMAIL    = var.sender_email
+    RECIPIENT_EMAIL = var.recipient_email
+    CFG_SET_NAME    = var.cfg_set_name
   }
+}
+
 
   tags = {
     Environment = var.environment_tag

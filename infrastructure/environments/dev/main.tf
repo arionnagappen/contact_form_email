@@ -99,3 +99,9 @@ module "my_waf" {
   apigateway_stage_arn = module.my_api_gateway.apigateway_stage_arn
 }
 
+// --- Public --- //
+output "api_gateway_invoke_url" {
+  description = "Public API Gateway endpoint from the module"
+  value       = module.my_api_gateway.api_gateway_invoke_url
+}
+

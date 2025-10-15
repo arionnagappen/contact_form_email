@@ -72,7 +72,8 @@ resource "aws_wafv2_web_acl" "contact_form_acl" {
 }
 
 // --- WAF Association --- //
-resource "aws_wafv2_web_acl_association" "contact_form_acl_assoc" {
-  resource_arn = var.apigateway_stage_arn
+/* resource "aws_wafv2_web_acl_association" "contact_form_acl_assoc" {
+  resource_arn = replace(var.apigateway_stage_arn , "$", "%24")
   web_acl_arn  = aws_wafv2_web_acl.contact_form_acl.arn
 }
+*/

@@ -38,7 +38,7 @@ def lambda_handler(event, context):
             return _response(400, {"error": "validation", "details": errors})
 
         submission_id = str(uuid.uuid4())
-        created_at = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc).isoformat()
+        created_at = datetime.datetime.now(datetime.timezone.utc).isoformat()
 
         # Persist to DynamoDB
         item = {
@@ -50,23 +50,44 @@ def lambda_handler(event, context):
         }
         table.put_item(Item=item)
 
-        # Optional: send notification email if envs provided
         if SENDER_EMAIL and RECIPIENT_EMAIL:
-            ses_kwargs = {
+        # 1) Admin notification to business, replies go to customer
+            admin_kwargs = {
                 "Source": SENDER_EMAIL,
                 "Destination": {"ToAddresses": [RECIPIENT_EMAIL]},
+                "ReplyToAddresses": [email],  # reply targets the customer
                 "Message": {
-                    "Subject": {"Data": f"New Contact Submission {submission_id}"},
-                    "Body": {"Text": {"Data": f"From: {name} <{email}>\n\n{message}"}},
+                    "Subject": {"Data": f"New Contact: {name} <{email}> (ref {submission_id})"},
+                    "Body": {"Text": {"Data": f"{message}\n\nFrom: {name} <{email}>\nRef: {submission_id}"}}
+                },
+            }
+            
+            if CFG_SET_NAME:
+                admin_kwargs["ConfigurationSetName"] = CFG_SET_NAME
+            try:
+                ses.send_email(**admin_kwargs)
+            except ClientError as e:
+                print(f"SES admin send failed: {e}")
+
+        # 2) Confirmation to customer from business
+            confirm_kwargs = {
+                "Source": SENDER_EMAIL,
+                "Destination": {"ToAddresses": [email]},
+                "Message": {
+                    "Subject": {"Data": "We received your message"},
+                    "Body": {"Text": {"Data": (
+                        f"Hi {name},\n\nThanks for reaching out. We received your message and will reply soon.\n"
+                        f"Reference ID: {submission_id}\n\n— Arion"
+                    )}},
                 },
             }
             if CFG_SET_NAME:
-                ses_kwargs["ConfigurationSetName"] = CFG_SET_NAME
+                confirm_kwargs["ConfigurationSetName"] = CFG_SET_NAME
             try:
-                ses.send_email(**ses_kwargs)
+                ses.send_email(**confirm_kwargs)
             except ClientError as e:
-                # Log but don't fail the request
-                print(f"SES send_email failed: {e}")
+                print(f"SES confirm send failed: {e}")
+
 
         return _response(200, {"submission_id": submission_id, "status": "accepted"})
 

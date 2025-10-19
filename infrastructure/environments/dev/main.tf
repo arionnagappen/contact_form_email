@@ -27,7 +27,7 @@ module "my_lambda_function" {
   log_level_variable = "info"
   table_name = module.my_dynambodb.contact_submissions_name
   sender_email = "arionnagappen@gmail.com"
-  recipient_email = "nagappen27@gmail.com"
+  recipient_email = "arionnagappen@gmail.com"
   cfg_set_name = "contact-form-cfg"
   
 
@@ -89,8 +89,8 @@ module "my_ses" {
   source = "../../modules/ses"
   lambda_alert_arn = module.my_sns.sns_topic_arn
 
-  sender_identity_email = "xxxxx"
-  recipient_identity_email = "xxxxx"
+  sender_identity_email = "arionnagappen@gmail.com"
+  recipient_identity_email = "nagappen27@gmail.com"
 } 
 
 // --- WAF --- //
@@ -103,5 +103,14 @@ module "my_waf" {
 output "api_gateway_invoke_url" {
   description = "Public API Gateway endpoint from the module"
   value       = module.my_api_gateway.api_gateway_invoke_url
+}
+
+output "distribution_id" {
+  description = "Cloudfront distribution ID"
+  value = module.frontend.distribution_id
+}
+
+output "cloudfront_url" {
+  value = module.frontend.cloudfront_url
 }
 

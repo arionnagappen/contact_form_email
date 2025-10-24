@@ -1,7 +1,13 @@
 // --- FRONTEND --- //
 module "frontend" {
   source = "../../modules/s3-static-site"
+
+  # S3 
   frontend_bucket_name = "contact-form-email-frontend"
+
+  # CloudFront
+  dist_aliases = ["www.mynewtestdomain.click", "mynewtestdomain.click", "dev.mynewtestdomain.click"]
+  certificate_arn = "arn:aws:acm:us-east-1:536697234818:certificate/6399a90c-3132-4488-9e3a-c4bddd09dcc2"
 }
 
 // --- IAM ROLES --- //
@@ -97,6 +103,15 @@ module "my_ses" {
 module "my_waf" {
   source = "../../modules/waf"
   apigateway_stage_arn = module.my_api_gateway.apigateway_stage_arn
+}
+
+// --- ROUTE 53 --- //
+module "my_dns_route" {
+  source = "../../modules/route53"
+
+  # Development Domain
+  main_domain = "mynewtestdomain.click"
+  dev_domain = "dev.mynewtestdomain.click"
 }
 
 // --- Public --- //

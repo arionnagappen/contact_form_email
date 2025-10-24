@@ -20,6 +20,8 @@ resource "aws_cloudfront_distribution" "s3_frontend_distribution" {
 
   }
 
+  aliases = var.dist_aliases
+
   # Activate or Disable content distribution
   enabled = true
 
@@ -59,6 +61,8 @@ resource "aws_cloudfront_distribution" "s3_frontend_distribution" {
 
   viewer_certificate {
     # Configure SSL and TSL settings
-    cloudfront_default_certificate = true
+    acm_certificate_arn = var.certificate_arn
+    ssl_support_method  = "sni-only"
+    minimum_protocol_version = "TLSv1.2_2021"
   }
 }

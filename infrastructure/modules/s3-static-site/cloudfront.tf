@@ -20,7 +20,10 @@ resource "aws_cloudfront_distribution" "s3_frontend_distribution" {
 
   }
 
-  aliases = var.dist_aliases
+  aliases = [
+  for a in var.dist_aliases :
+  trim(replace(replace(a, "https://", ""), "http://", ""), "")
+  ]
 
   # Activate or Disable content distribution
   enabled = true

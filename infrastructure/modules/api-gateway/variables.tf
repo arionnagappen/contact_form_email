@@ -12,3 +12,7 @@ variable "cloudfront_domain_name" {
   type = string
   description = "CloudFront URL"
 }
+
+variable "dist_aliases" {
+  type = list(string)
+}

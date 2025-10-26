@@ -138,7 +138,7 @@ form.addEventListener("submit", async (e) => {
 
   try {
     // TODO: Replace with your actual AWS API Gateway endpoint
-    const response = await fetch("https://d2qdik5aa3.execute-api.eu-west-1.amazonaws.com/contact", {
+    const response = await fetch("https://6wqs6t6qjg.execute-api.eu-west-1.amazonaws.com/contact", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -10,3 +10,7 @@ output "cloudfront_url" {
   value = aws_cloudfront_distribution.s3_frontend_distribution.domain_name
 }
 
+output "dist_aliases" {
+  value = var.dist_aliases
+}
+

@@ -28,7 +28,7 @@ I designed and built a secure and reliable contact form solution to process cust
 
 **Architecture Overview**
 
-**[View Architecture Diagram](/architecture_diagram/contact_form)**
+**[View Architecture Diagram](/architecture_diagram/contact_form.png)**
 
 **Key Components**
 - **Amazon S3** and **CloudFront**: Host and deliver static frontend files globally with high performance.  

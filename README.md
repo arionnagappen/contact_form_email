@@ -28,7 +28,7 @@ I designed and built a secure and reliable contact form solution to process cust
 
 **Architecture Overview**
 
-**[View Architecture Diagram](architecture_diagram/contact_form copy.drawio.png)**
+**[View Architecture Diagram](/architecture_diagram/contact_form.drawio)**
 
 **Key Components**
 - **Amazon S3** and **CloudFront**: Host and deliver static frontend files globally with high performance.  
